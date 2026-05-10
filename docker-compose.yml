@@ -1,0 +1,41 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: missedrun-selfhosted-postgres
+    environment:
+      POSTGRES_USER: missedrun
+      POSTGRES_PASSWORD: missedrun
+      POSTGRES_DB: missedrun
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5439:5432"
+
+  backend:
+    image: python:3.12-slim
+    container_name: missedrun-selfhosted-backend
+    working_dir: /app
+    command: sh -c "pip install --no-cache-dir -r requirements.txt && uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+    volumes:
+      - ./backend:/app
+    env_file:
+      - .env
+    ports:
+      - "8008:8000"
+    depends_on:
+      - postgres
+
+  checker:
+    image: python:3.12-slim
+    container_name: missedrun-selfhosted-checker
+    working_dir: /app
+    command: sh -c "pip install --no-cache-dir -r requirements.txt && python -m app.workers.checker"
+    volumes:
+      - ./backend:/app
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+
+volumes:
+  postgres-data:
