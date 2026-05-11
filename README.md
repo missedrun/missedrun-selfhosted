@@ -3,7 +3,7 @@
 Self-hosted cron and scheduled job monitoring for detecting silent failures.
 
 Hosted version: https://missedrun.com  
-Self-hosted version: https://github.com/kspetkov79/missedrun-selfhosted
+Self-hosted version: https://github.com/missedrun/missedrun-selfhosted
 
 MissedRun monitors recurring jobs such as cron scripts, backups, imports, ETL pipelines, billing syncs, cleanup tasks, and scheduled reports.
 
@@ -63,7 +63,7 @@ https://missedrun.com
 
 Clone the repository:
 
-    git clone https://github.com/kspetkov79/missedrun-selfhosted.git
+    git clone https://github.com/missedrun/missedrun-selfhosted.git
     cd missedrun-selfhosted
 
 Copy the example environment file:
