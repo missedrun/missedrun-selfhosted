@@ -2,6 +2,9 @@
 
 Self-hosted cron and scheduled job monitoring for detecting silent failures.
 
+Hosted version: https://missedrun.com  
+Self-hosted version: https://github.com/kspetkov79/missedrun-selfhosted
+
 MissedRun monitors recurring jobs such as cron scripts, backups, imports, ETL pipelines, billing syncs, cleanup tasks, and scheduled reports.
 
 It works by giving each monitor a unique ping URL. Your job calls that URL when it runs. If the job does not check in within the expected interval plus grace period, MissedRun marks it as missing and can send an alert.
