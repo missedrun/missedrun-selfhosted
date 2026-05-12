@@ -70,23 +70,23 @@ Not included in V1:
 
 ### Dashboard
 
-![MissedRun dashboard](docs/screenshots/dashboard.webp)
+<img src="docs/screenshots/dashboard.webp" alt="MissedRun dashboard" width="900">
 
 ### Monitor details and history
 
-![MissedRun monitor details and history](docs/screenshots/monitor-history.webp)
+<img src="docs/screenshots/monitor-history.webp" alt="MissedRun monitor details and history" width="900">
 
 ### Ping URLs
 
-![MissedRun ping URLs](docs/screenshots/ping-urls.webp)
+<img src="docs/screenshots/ping-urls.webp" alt="MissedRun ping URLs" width="900">
 
 ### Create monitor
 
-![Create a MissedRun monitor](docs/screenshots/create-monitor.webp)
+<img src="docs/screenshots/create-monitor.webp" alt="Create a MissedRun monitor" width="900">
 
 ### Email alert
 
-![MissedRun email alert](docs/screenshots/email-alert.webp)
+<img src="docs/screenshots/email-alert.webp" alt="MissedRun email alert" width="700">
 
 ## Hosted vs self-hosted
 
