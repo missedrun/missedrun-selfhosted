@@ -107,28 +107,34 @@ git clone https://github.com/missedrun/missedrun-selfhosted.git
 cd missedrun-selfhosted
 ```
 
-Copy the example environment file:
+Create your environment file:
 
 ```bash
 cp .env.example .env
 ```
 
-Start the services:
+Start MissedRun with Docker Compose:
 
 ```bash
 docker compose up -d
 ```
 
-Check the API:
+Check that the API is running:
 
 ```bash
 curl http://localhost:8008/health
 ```
 
-Check the database:
+Check that the database connection is working:
 
 ```bash
 curl http://localhost:8008/db-health
+```
+
+The API should now be available at:
+
+```text
+http://localhost:8008
 ```
 
 ## Create a monitor
