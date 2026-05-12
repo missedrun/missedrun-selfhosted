@@ -1,8 +1,10 @@
 # MissedRun Self-hosted
 
-Self-hosted cron and scheduled job monitoring for jobs that fail silently.
+Self-hosted cron and scheduled job monitoring for detecting silent failures.
 
-MissedRun helps you notice when recurring jobs stop checking in, run late, fail, or get stuck. It is useful for cron scripts, backups, imports, ETL pipelines, billing syncs, cleanup tasks, scheduled reports, and other background jobs.
+MissedRun monitors recurring jobs such as cron scripts, backups, imports, ETL pipelines, billing syncs, cleanup tasks, and scheduled reports.
+
+It works by giving each monitor a unique ping URL. Your job calls that URL when it runs, starts, finishes successfully, or fails. If the job does not check in within the expected interval plus grace period, MissedRun marks it as missing and can send an alert.
 
 * Hosted version: [https://missedrun.com](https://missedrun.com)
 * Self-hosted version: [https://github.com/missedrun/missedrun-selfhosted](https://github.com/missedrun/missedrun-selfhosted)
@@ -23,41 +25,47 @@ A job can stop running without throwing an exception. For example:
 * a scheduled report was not generated
 * a background worker silently stopped
 
-MissedRun is built for that case: the job was expected to check in, but nothing arrived.
+MissedRun is built to detect this kind of silent failure.
 
-## How it works
+## Current V1 features
 
-1. Create a monitor for a scheduled job.
-2. MissedRun gives the monitor a unique ping URL.
-3. Your job calls the URL when it starts, succeeds, or fails.
-4. If the job does not check in within the expected interval plus grace period, MissedRun marks it as missing.
-5. MissedRun can send an email alert when a job is missing, failed, or stuck.
+This repository is the V1 self-hosted version. It currently focuses on basic heartbeat-style monitoring for scheduled jobs.
 
-## Features
+Available now:
 
-* Monitor cron jobs and recurring background tasks
-* Unique ping URL for each monitor
-* Success pings
-* Start pings for long-running jobs
-* Failure pings with optional failure messages
-* Status tracking: pending, running, healthy, failed, missing, paused
-* Event history for each monitor
-* Background checker for missed jobs
-* Basic email alerts via SMTP
+* Create monitors for scheduled jobs
+* Generate unique ping URLs
+* Success ping endpoint
+* Optional start ping endpoint
+* Optional failure ping endpoint
+* Track monitor status:
+
+  * pending
+  * running
+  * healthy
+  * failed
+  * missing
+  * paused
+* Store monitor event history
+* Background checker for missing jobs
+* Basic email alert support
 * Docker Compose setup
 * FastAPI backend
 * PostgreSQL storage
 
-## When to use MissedRun
+Not included in V1:
 
-Use MissedRun when you want a simple way to answer questions like:
-
-* Did my nightly backup run?
-* Did my import finish today?
-* Did my billing sync stop?
-* Did my cleanup job get stuck?
-* Did a scheduled report fail silently?
-* Has a job stopped checking in?
+* Slack alerts
+* Webhook alerts
+* Discord alerts
+* Telegram alerts
+* Teams / workspaces
+* Output metrics such as processed count, created count, or failed count
+* Rules/assertions on job output
+* Anomaly detection
+* Historical volume comparison
+* Public status pages
+* Integration marketplace
 
 ## Hosted vs self-hosted
 
@@ -102,7 +110,7 @@ Check the database:
 curl http://localhost:8008/db-health
 ```
 
-## Create your first monitor
+## Create a monitor
 
 Create a monitor for a nightly backup that should run once every 24 hours, with a 60-minute grace period:
 
@@ -283,39 +291,6 @@ docker compose down -v
 | `POST`   | `/api/ping/{token}`          | Success ping          |
 | `POST`   | `/api/ping/{token}/start`    | Start ping            |
 | `POST`   | `/api/ping/{token}/fail`     | Failure ping          |
-
-## Screenshots
-
-Add screenshots here before sharing the repository widely.
-
-Suggested screenshots:
-
-* monitor list
-* monitor details
-* ping URLs
-* history/events
-* email alert example
-
-Example:
-
-```md
-![MissedRun monitor details](docs/screenshots/monitor-details.png)
-![MissedRun event history](docs/screenshots/event-history.png)
-```
-
-## Roadmap
-
-Possible next features:
-
-* Web dashboard
-* Webhook alerts
-* Slack alerts
-* Discord alerts
-* Telegram alerts
-* Better Docker images
-* Authentication for shared deployments
-* Metrics and uptime summaries
-* Public status pages
 
 ## Security
 
